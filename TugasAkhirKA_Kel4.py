@@ -65,3 +65,18 @@ X_test_scaled = scaler.transform(X_test)
 
 print("\nJumlah data training:", X_train_scaled.shape)
 print("Jumlah data testing:", X_test_scaled.shape)
+
+
+from sklearn.neural_network import MLPClassifier
+
+model = MLPClassifier(
+    hidden_layer_sizes=(16,),
+    activation='relu',
+    solver='adam',
+    max_iter=500,
+    random_state=42
+)
+
+model.fit(X_train_scaled, y_train)
+
+print("\nModel MLPClassifier berhasil dilatih.")
