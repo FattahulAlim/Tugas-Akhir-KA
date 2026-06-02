@@ -48,6 +48,7 @@ print("\nLabel kelas:")
 print(encoder.classes_)
 
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
 X_train, X_test, y_train, y_test = train_test_split(
     X,
@@ -57,5 +58,10 @@ X_train, X_test, y_train, y_test = train_test_split(
     stratify=y_encoded
 )
 
-print("Shape X_train:", X_train.shape)
-print("Shape X_test:", X_test.shape)
+scaler = StandardScaler()
+
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+print("\nJumlah data training:", X_train_scaled.shape)
+print("Jumlah data testing:", X_test_scaled.shape)
