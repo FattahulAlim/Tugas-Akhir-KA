@@ -46,3 +46,16 @@ y_encoded = encoder.fit_transform(y)
 
 print("\nLabel kelas:")
 print(encoder.classes_)
+
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y_encoded,
+    test_size=0.2,
+    random_state=42,
+    stratify=y_encoded
+)
+
+print("Shape X_train:", X_train.shape)
+print("Shape X_test:", X_test.shape)
