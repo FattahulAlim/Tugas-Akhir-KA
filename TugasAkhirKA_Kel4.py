@@ -67,16 +67,27 @@ print("\nJumlah data training:", X_train_scaled.shape)
 print("Jumlah data testing:", X_test_scaled.shape)
 
 
-from sklearn.neural_network import MLPClassifier
+import tensorflow as tf
 
-model = MLPClassifier(
-    hidden_layer_sizes=(16,),
-    activation='relu',
-    solver='adam',
-    max_iter=500,
-    random_state=42
+model = tf.keras.Sequential([
+    tf.keras.layers.Dense(16, activation='relu', input_shape=(X_train_scaled.shape[1],)),
+    tf.keras.layers.Dense(3, activation='softmax')
+])
+
+model.compile(
+    optimizer='adam',
+    loss='sparse_categorical_crossentropy',
+    metrics=['accuracy']
 )
 
-model.fit(X_train_scaled, y_train)
+print("\nStruktur Model:")
+model.summary()
 
-print("\nModel MLPClassifier berhasil dilatih.")
+history = model.fit(
+    X_train_scaled,
+    y_train,
+    epochs=50,
+    batch_size=16,
+    validation_split=0.2,
+    verbose=1
+)
